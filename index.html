@@ -6,6 +6,14 @@
     <title>Number converter</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+        }
+
         .error {
             background: red;
         }
@@ -13,10 +21,25 @@
 </head>
 <body>
     <form>
-        binary  <input id="binary" data-base="2" />
-        decimal <input id="decimal" data-base="10" />
-        hex     <input id="hex" data-base="16" />
-        octal   <input id="octal" data-base="8" />
+        <div>
+            <label for="binary">Binary</label>
+            <input id="binary" pattern="[01]+" data-base="2" />
+        </div>
+
+        <div>
+            <label for="decimal">Decimal</label>
+            <input id="decimal" pattern="[0-9]+" data-base="10" />
+        </div>
+
+        <div>
+            <label for="hex">Hex</label>
+            <input id="hex" pattern="(0[xX])?[0-9a-fA-F]+" data-base="16" />
+        </div>
+
+        <div>
+            <label for="octal">Octal</label>
+            <input id="octal" pattern="[0-7]+" data-base="8" />
+        </div>
     </form>
 
     <script>
@@ -29,26 +52,22 @@
 
         for (const current of inputs) {
             current.addEventListener("input", () => {
-                current.classList.remove("error");
-
-                const value = parseInt(current.value, current.dataset.base);
-                if (isNaN(value) && current.value.length > 0) {
+                if (!current.validity.valid) {
                     return current.classList.add("error");
                 }
 
+                current.classList.remove("error");
+                const value = parseInt(current.value, current.dataset.base);
+
                 for (const input of inputs.filter(i => i !== current)) {
                     input.classList.remove("error");
-                    input.value = isNaN(value)
-                        ? ""
-                        : value.toString(input.dataset.base);
-                }
-            });
 
-            current.addEventListener("blur", () => {
-                if (current.classList.contains("error")) {
-                    current.classList.remove("error");
-                    current.value = ""
-                    current.dispatchEvent(new Event("input"));
+                    if (isNaN(value)) {
+                        console.assert(current.value.length === 0, "value: '%s'", current.value);
+                        input.value = "";
+                    } else {
+                        input.value = value.toString(input.dataset.base);
+                    }
                 }
             });
         }
