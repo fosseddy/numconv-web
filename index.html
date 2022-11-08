@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number converter</title>
+
+    <style>
+        .error {
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        binary  <input id="binary" data-base="2" />
+        decimal <input id="decimal" data-base="10" />
+        hex     <input id="hex" data-base="16" />
+        octal   <input id="octal" data-base="8" />
+    </form>
+
+    <script>
+        const inputs = [
+            document.querySelector("#binary"),
+            document.querySelector("#decimal"),
+            document.querySelector("#hex"),
+            document.querySelector("#octal")
+        ];
+
+        for (const current of inputs) {
+            current.addEventListener("input", () => {
+                current.classList.remove("error");
+
+                const value = parseInt(current.value, current.dataset.base);
+                if (isNaN(value) && current.value.length > 0) {
+                    return current.classList.add("error");
+                }
+
+                for (const input of inputs.filter(i => i !== current)) {
+                    input.classList.remove("error");
+                    input.value = isNaN(value)
+                        ? ""
+                        : value.toString(input.dataset.base);
+                }
+            });
+
+            current.addEventListener("blur", () => {
+                if (current.classList.contains("error")) {
+                    current.classList.remove("error");
+                    current.value = ""
+                    current.dispatchEvent(new Event("input"));
+                }
+            });
+        }
+    </script>
+</body>
+</html>
