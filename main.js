@@ -13,13 +13,14 @@ for (const current of inputs) {
 
         current.classList.remove("error");
         let value = parseInt(current.value, current.dataset.base);
+        // @NOTE(art): only base 10 can be negative
         if (value < 0) value *= -1;
 
         for (const input of inputs) {
             if (input === current) continue;
 
             input.classList.remove("error");
-
+            // @NOTE(art): input is empty
             if (isNaN(value)) {
                 console.assert(current.value.length === 0,
                                "value: '%s'", current.value);

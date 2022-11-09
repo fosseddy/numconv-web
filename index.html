@@ -8,26 +8,40 @@
 </head>
 <body>
     <form>
-        <div>
+        <div class="form-group">
             <label for="binary">Binary</label>
             <input id="binary" pattern="[01]+" data-base="2" />
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="decimal">Decimal</label>
             <input id="decimal" pattern="-?[0-9]+" data-base="10" />
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="hex">Hex</label>
             <input id="hex" pattern="(0[xX])?[0-9a-fA-F]+" data-base="16" />
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="octal">Octal</label>
             <input id="octal" pattern="[0-7]+" data-base="8" />
         </div>
     </form>
+
+    <div class="representation">
+        <div>
+            <button>Signed</button>
+            <button>Unsigned</button>
+        </div>
+
+        <div>
+            <button>8 bit</button>
+            <button>16 bit</button>
+            <button>32 bit</button>
+            <button>64 bit</button>
+        </div>
+    </div>
 
     <script src="./main.js"></script>
 </body>
