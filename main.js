@@ -30,26 +30,34 @@ for (const current of inputs) {
 let type = "signed";
 let size = 64;
 
-const buttons = Array.from(document.querySelectorAll("button"));
-for (const b of buttons) {
-    if (b.dataset.type === type) b.classList.add("active");
-    if (Number(b.dataset.size) === size) b.classList.add("active");
+const typeButtons = Array.from(document.querySelectorAll("button[data-type]"));
+for (const tb of typeButtons) {
+    if (tb.dataset.type === type) tb.classList.add("active");
 
-    b.addEventListener("click", () => {
-        if (b.dataset.type) {
-            if (b.classList.contains("active")) return;
-            type = b.dataset.type;
-        }
+    tb.addEventListener("click", () => {
+        if (tb.classList.contains("active")) return;
 
-        if (b.dataset.size) {
-            if (b.classList.contains("active")) return;
-            size = Number(b.dataset.size);
-        }
-
-        for (const bb of buttons) {
-            bb.classList.remove("active");
-            if (bb.dataset.type === type) bb.classList.add("active");
-            if (Number(bb.dataset.size) === size) bb.classList.add("active");
-        }
+        type = tb.dataset.type;
+        clearActiveButton(typeButtons);
+        tb.classList.add("active");
     });
+}
+
+const sizeButtons = Array.from(document.querySelectorAll("button[data-size]"));
+for (const sb of sizeButtons) {
+    if (Number(sb.dataset.size) === size) sb.classList.add("active");
+
+    sb.addEventListener("click", () => {
+        if (sb.classList.contains("active")) return;
+
+        size = Number(sb.dataset.size);
+        clearActiveButton(sizeButtons);
+        sb.classList.add("active");
+    });
+}
+
+const clearActiveButton = buttons => {
+    for (const b of buttons) {
+        b.classList.remove("active");
+    }
 }
