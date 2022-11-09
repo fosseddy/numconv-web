@@ -3,21 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>Number converter</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        label {
-            display: block;
-        }
-
-        .error {
-            background: red;
-        }
-    </style>
 </head>
 <body>
     <form>
@@ -28,7 +15,7 @@
 
         <div>
             <label for="decimal">Decimal</label>
-            <input id="decimal" pattern="[0-9]+" data-base="10" />
+            <input id="decimal" pattern="-?[0-9]+" data-base="10" />
         </div>
 
         <div>
@@ -42,35 +29,6 @@
         </div>
     </form>
 
-    <script>
-        const inputs = [
-            document.querySelector("#binary"),
-            document.querySelector("#decimal"),
-            document.querySelector("#hex"),
-            document.querySelector("#octal")
-        ];
-
-        for (const current of inputs) {
-            current.addEventListener("input", () => {
-                if (!current.validity.valid) {
-                    return current.classList.add("error");
-                }
-
-                current.classList.remove("error");
-                const value = parseInt(current.value, current.dataset.base);
-
-                for (const input of inputs.filter(i => i !== current)) {
-                    input.classList.remove("error");
-
-                    if (isNaN(value)) {
-                        console.assert(current.value.length === 0, "value: '%s'", current.value);
-                        input.value = "";
-                    } else {
-                        input.value = value.toString(input.dataset.base);
-                    }
-                }
-            });
-        }
-    </script>
+    <script src="./main.js"></script>
 </body>
 </html>
