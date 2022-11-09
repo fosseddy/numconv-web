@@ -1,9 +1,4 @@
-const inputs = [
-    document.querySelector("#binary"),
-    document.querySelector("#decimal"),
-    document.querySelector("#hex"),
-    document.querySelector("#octal")
-];
+const inputs = Array.from(document.querySelectorAll("input"));
 
 for (const current of inputs) {
     current.addEventListener("input", () => {
@@ -28,6 +23,33 @@ for (const current of inputs) {
             } else {
                 input.value = value.toString(input.dataset.base);
             }
+        }
+    });
+}
+
+let type = "signed";
+let size = 64;
+
+const buttons = Array.from(document.querySelectorAll("button"));
+for (const b of buttons) {
+    if (b.dataset.type === type) b.classList.add("active");
+    if (Number(b.dataset.size) === size) b.classList.add("active");
+
+    b.addEventListener("click", () => {
+        if (b.dataset.type) {
+            if (b.classList.contains("active")) return;
+            type = b.dataset.type;
+        }
+
+        if (b.dataset.size) {
+            if (b.classList.contains("active")) return;
+            size = Number(b.dataset.size);
+        }
+
+        for (const bb of buttons) {
+            bb.classList.remove("active");
+            if (bb.dataset.type === type) bb.classList.add("active");
+            if (Number(bb.dataset.size) === size) bb.classList.add("active");
         }
     });
 }

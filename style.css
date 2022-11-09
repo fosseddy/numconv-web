@@ -4,9 +4,10 @@
     box-sizing: border-box;
 }
 
-*:focus {
+*:focus-visible {
     outline: 2px solid rosybrown;
 }
+
 
 html, body {
     height: 100%;
@@ -73,6 +74,10 @@ button {
 button:hover {
     cursor: pointer;
     background: rosybrown;
-    color: antiquewhite;
+    color: white;
 }
 
+button.active {
+    background: rosybrown;
+    color: white;
+}
