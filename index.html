@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
     <title>Number converter</title>
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="./main.js"></script>
 </head>
 <body>
     <form>
         <div class="form-group">
             <label for="binary">Binary</label>
-            <input id="binary" pattern="[01]+" data-base="2" />
+            <input pattern="[01]+" data-base="2" />
         </div>
 
         <div class="form-group">
             <label for="decimal">Decimal</label>
-            <input id="decimal" pattern="-?[0-9]+" data-base="10" />
+            <input pattern="-?[0-9]+" data-base="10" />
         </div>
 
         <div class="form-group">
             <label for="hex">Hex</label>
-            <input id="hex" pattern="(0[xX])?[0-9a-fA-F]+" data-base="16" />
+            <input pattern="(0[xX])?[0-9a-fA-F]+" data-base="16" />
         </div>
 
         <div class="form-group">
             <label for="octal">Octal</label>
-            <input id="octal" pattern="[0-7]+" data-base="8" />
+            <input pattern="[0-7]+" data-base="8" />
         </div>
     </form>
 
@@ -43,6 +44,9 @@
         </div>
     </div>
 
-    <script src="./main.js"></script>
+    <p id="binary"></p>
+    <p id="decimal"></p>
+    <p id="hex"></p>
+    <p id="octal"></p>
 </body>
 </html>
