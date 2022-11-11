@@ -10,13 +10,13 @@
 <body>
     <form>
         <div class="form-group">
-            <label for="signed">Signed</label>
-            <input id="signed" pattern="-?[0-9]+" data-base="10" />
+            <label for="unsigned">Unsigned</label>
+            <input id="unsigned" pattern="[0-9]+" data-base="10" />
         </div>
 
         <div class="form-group">
-            <label for="unsigned">Unsigned</label>
-            <input id="unsigned" pattern="[0-9]+" data-base="10" />
+            <label for="signed">Signed</label>
+            <input id="signed" pattern="-?[0-9]+" data-base="10" />
         </div>
 
         <div class="form-group">
@@ -35,19 +35,36 @@
         </div>
     </form>
 
-    <!--div class="info-size">
+    <div class="info-size">
         <button data-size="8">8 bit</button>
         <button data-size="16">16 bit</button>
         <button data-size="32">32 bit</button>
-        <button data-size="64">64 bit</button>
-    </div-->
+        <button data-size="53">64 bit</button>
+    </div>
 
-    <!--div class="info">
-        <p id="info-binary"></p>
-        <p id="info-udecimal"></p>
-        <p id="info-sdecimal"></p>
-        <p id="info-hex"></p>
-        <p id="info-octal"></p>
-    </div-->
+    <div class="info">
+        <div class="info-container">
+            <div class="info-item">
+                <p>Decimal</p>
+                <p id="info-unsigned"></p>
+                <p id="info-signed"></p>
+            </div>
+
+            <div class="info-item">
+                <p>Binary</p>
+                <p id="info-binary"></p>
+            </div>
+
+            <div class="info-item">
+                <p>Hex</p>
+                <p id="info-hex"></p>
+            </div>
+
+            <div class="info-item">
+                <p>Octal</p>
+                <p id="info-octal"></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
