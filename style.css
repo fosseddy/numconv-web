@@ -54,11 +54,12 @@ input {
     background: pink;
 }
 
-.representation {
+.info-size {
     margin-bottom: 2rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    gap: 1rem;
 }
 
 button {
@@ -80,4 +81,10 @@ button:hover {
 button.active {
     background: rosybrown;
     color: white;
+}
+
+.info {
+    background: antiquewhite;
+    height: 100%;
+    padding: 1rem;
 }

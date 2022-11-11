@@ -1,10 +1,10 @@
 const state = {
-    type: "unsigned",
     size: 8
 };
 
 const bin = document.querySelector("#binary");
-const dec = document.querySelector("#decimal");
+const udec = document.querySelector("#udecimal");
+const sdec = document.querySelector("#sdecimal");
 const hex = document.querySelector("#hex");
 const oct = document.querySelector("#octal");
 
@@ -34,22 +34,7 @@ for (const current of inputs) {
             }
         }
 
-        updateValues();
-    });
-}
-
-const typeButtons = Array.from(document.querySelectorAll("button[data-type]"));
-for (const tb of typeButtons) {
-    if (tb.dataset.type === state.type) tb.classList.add("active");
-
-    tb.addEventListener("click", () => {
-        if (tb.classList.contains("active")) return;
-
-        state.type = tb.dataset.type;
-        clearActiveButton(typeButtons);
-        tb.classList.add("active");
-
-        updateValues();
+        updateInfo();
     });
 }
 
@@ -61,30 +46,32 @@ for (const sb of sizeButtons) {
         if (sb.classList.contains("active")) return;
 
         state.size = Number(sb.dataset.size);
-        clearActiveButton(sizeButtons);
+
+        for (const b of sizeButtons) {
+            b.classList.remove("active");
+        }
+
         sb.classList.add("active");
 
-        updateValues();
+        updateInfo();
     });
 }
 
-const updateValues = () => {
+const updateInfo = () => {
     let bval = inputs.find(i => Number(i.dataset.base) === 2).value;
     bval = roundLen(bval, state.size);
 
     let hval = inputs.find(i => Number(i.dataset.base) === 16).value;
     hval = roundLen(hval, state.size / 4);
 
-    let dval = parseInt(bval, 2);
-
-    let oval = dval.toString(8);
-    oval = roundLen(oval, Math.floor(state.size / 2.6));
-
-    if (state.type === "signed") {
-        if (bval[0] === "1") {
-            dval = 2**state.size / 2 - dval;
-        }
+    let udval = parseInt(bval, 2);
+    let sdval = udval;
+    if (bval[0] === "1") {
+        sdval = 2**state.size / 2 - udval;
     }
+
+    let oval = udval.toString(8);
+    oval = roundLen(oval, Math.floor(state.size / 2.6));
 
     if (state.size > 8) {
         bval = separate(bval, 8);
@@ -94,18 +81,14 @@ const updateValues = () => {
 
     hval = separate(hval, 2)
     oval = separate(oval, 3);
-    dval = separateDecimal(dval);
+    udval = separateDecimal(udval);
+    sdval = separateDecimal(sdval);
 
     bin.textContent = bval;
-    dec.textContent = dval;
+    udec.textContent = udval;
+    sdec.textContent = sdval;
     hex.textContent = hval;
     oct.textContent = oval;
-}
-
-const clearActiveButton = buttons => {
-    for (const b of buttons) {
-        b.classList.remove("active");
-    }
 }
 
 const roundLen = (s, n) => {
