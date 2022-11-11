@@ -1,13 +1,5 @@
 const inputs = Array.from(document.querySelectorAll("input"));
 
-const info = {
-    binary: document.querySelector("#info-binary"),
-    unsigned: document.querySelector("#info-unsigned"),
-    signed: document.querySelector("#info-signed"),
-    hex: document.querySelector("#info-hex"),
-    octal: document.querySelector("#info-octal")
-};
-
 const state = {
     size: 32,
     lastUsedInput: inputs[0]
@@ -85,6 +77,14 @@ for (const b of buttons) {
         state.lastUsedInput.dispatchEvent(new Event("input"));
     });
 }
+
+const info = {
+    binary: document.querySelector("#info-binary"),
+    unsigned: document.querySelector("#info-unsigned"),
+    signed: document.querySelector("#info-signed"),
+    hex: document.querySelector("#info-hex"),
+    octal: document.querySelector("#info-octal")
+};
 
 const updateInfo = () => {
     let size = state.size;
